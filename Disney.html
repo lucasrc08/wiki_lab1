@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selección de Películas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            margin-top: 180px;
+        }
+        .user-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+        .user-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 150px;
+            margin: 10px;
+            padding: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .user-card:hover {
+            transform: scale(1.05);
+        }
+        .user-header {
+            height: 40px;
+            background-color: var(--color);
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+        }
+        .movie-container {
+            display: none;
+            margin: 20px auto;
+            width: 80%;
+        }
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+        .movie-box {
+            background-color: var(--color);
+            border-radius: 8px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>¿Quién está viendo?</h1>
+    <div class="user-container">
+        <div class="user-card" onclick="showMovies('user1')" style="--color: #007bff;">
+            <div class="user-header">Fernando</div>
+            <div class="user-name">User</div>
+        </div>
+        <div class="user-card" onclick="showMovies('user2')" style="--color: #28a745;">
+            <div class="user-header">Tíos</div>
+            <div class="user-name">User</div>
+        </div>
+        <div class="user-card" onclick="showMovies('user3')" style="--color: #dc3545;">
+            <div class="user-header">Abuelos</div>
+            <div class="user-name">User</div>
+        </div>
+    </div>
+
+    <div class="movie-container" id="movie-container">
+        <h2>Películas</h2>
+        <div class="movie-grid" id="movie-grid">
+            <!-- Aquí se insertarán las cajas de películas -->
+        </div>
+    </div>
+
+    <script>
+        function showMovies(user) {
+            // Ocultar los usuarios
+            document.querySelector('.user-container').style.display = 'none';
+            // Mostrar el contenedor de películas
+            const movieContainer = document.getElementById('movie-container');
+            movieContainer.style.display = 'block';
+
+            // Obtener la cuadrícula de películas
+            const movieGrid = document.getElementById('movie-grid');
+            movieGrid.innerHTML = ''; // Limpiar cualquier contenido previo
+
+            // Crear 10 cajas de películas
+            for (let i = 1; i <= 10; i++) {
+                const movieBox = document.createElement('div');
+                movieBox.className = 'movie-box';
+                movieBox.style.setProperty('--color', generateRandomColor());
+                movieBox.textContent = `Película ${i}`;
+                movieBox.onclick = () => alert(`Seleccionaste Película ${i}`);
+                movieGrid.appendChild(movieBox);
+            }
+        }
+
+        function generateRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    </script>
+</body>
+</html>
